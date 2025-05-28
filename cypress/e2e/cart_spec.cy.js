@@ -27,4 +27,16 @@ describe('Cart Test', () => {
     cy.get('.inventory_item').first().find('button').contains('Remove').click();
     cy.get('.shopping_cart_badge').should('not.exist');
   });
+
+  // Kiểm tra quy trình thanh toán 
+  it('Should complete checkout step one', () => {
+    cy.get('.inventory_item').first().find('button').contains('Add to cart').click();
+    cy.get('.shopping_cart_link').click();
+    cy.get('[data-test="checkout"]').click();
+    cy.get('[data-test="firstName"]').type('John');
+    cy.get('[data-test="lastName"]').type('Doe');
+    cy.get('[data-test="postalCode"]').type('12345');
+    cy.get('[data-test="continue"]').click();
+    cy.url().should('include', '/checkout-step-two.html');
+  });
 });
