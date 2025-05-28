@@ -19,4 +19,12 @@ describe('Cart Test', () => {
     cy.get('.product_sort_container').select('lohi');
     cy.get('.inventory_item_price').first().should('have.text', '$7.99');
   });
+
+   // Kiểm tra chức năng xóa sản phẩm khỏi giỏ hàng
+  it('Should remove a product from the cart', () => {
+    cy.get('.inventory_item').first().find('button').contains('Add to cart').click();
+    cy.get('.shopping_cart_badge').should('have.text', '1');
+    cy.get('.inventory_item').first().find('button').contains('Remove').click();
+    cy.get('.shopping_cart_badge').should('not.exist');
+  });
 });
